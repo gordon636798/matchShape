@@ -56,10 +56,11 @@ def bfs(queue,FA,FB,img):
     queue.append([s[3],level])
     
     # L0 = 3 時執行演算法1
-    while queue[0][1] < 3:
+    while len(queue) > 0 and queue[0][1] < 3:
         
-        
+        print(queue[0][0])
         if queue[0][0] is None:
+            FA += [ i for i in zeroHist ]
             queue.pop(0)
             continue
         s = slice(queue[0][0])
@@ -88,7 +89,7 @@ def bfs(queue,FA,FB,img):
     
     # T為LEVEL特徵
     T = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    while queue[0][1] <= 9:
+    while len(queue) > 0 and queue[0][1] <= 9:
         
                
         now_level = queue[0][1]
@@ -211,6 +212,8 @@ if __name__ == '__main__':
             print('has be done')
             continue
         img = cv2.imread(pic_path + pic , cv2.IMREAD_GRAYSCALE)
+        if img is None:
+            continue
         ret , img = cv2.threshold(img,128,255,cv2.THRESH_BINARY_INV)
         print('loaded')
         tStart = time.time()
@@ -223,12 +226,3 @@ if __name__ == '__main__':
 
     
     print('done')
-
-            
-
-
-
-
-
-
-
